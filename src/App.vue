@@ -66,15 +66,15 @@ const config = reactive({
 const types = ref([
   {
     type: 'auto',
-    name: '自动'
+    name: '混合瀑布流布局'
   },
   {
     type: 'fixedWidth',
-    name: '固定宽度'
+    name: '纵向瀑布流布局'
   },
   {
     type: 'fixedHeight',
-    name: '固定高度'
+    name: '横向瀑布流布局'
   }
 ]);
 const type = ref('auto');
