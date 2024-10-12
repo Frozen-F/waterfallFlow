@@ -37,8 +37,8 @@
       <div
         v-for="(item, index) in rowFixedHeightConfig.list"
         :key="index"
+        class="itemWrapper"
         :style="{
-          display: 'inline-block',
           height: `${item['height']}px`,
           width: `${item['width']}px`
         }"
@@ -326,6 +326,9 @@ $gap: var(--FWGap);
     display: flex;
     grid-gap: $gap;
     flex-wrap: wrap;
+    .itemWrapper {
+      display: inline-block;
+    }
   }
   .hidden {
     visibility: hidden;

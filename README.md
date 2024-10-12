@@ -49,3 +49,19 @@
     4、模块使用纵向瀑布流去排列
     5、渲染页面
 ```
+## 4、横向瀑布流布局（每行高度不同，同行内高度一致）
+```
+    <div class="box">
+        <div class="item">1</div>
+        <div class="item">2</div>
+    </div>
+        .box {
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+            display: inline-block;
+        }
+    }
+    1、以第一个元素的高度为该行高度
+    2、加满一整行后，重新计算改行各个元素宽度
+```
