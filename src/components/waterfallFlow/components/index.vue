@@ -5,7 +5,10 @@
         v-for="(item, index) in props.list"
         :key="index"
         class="itemWrapper"
-        :style="{ height: config.height, width: `${item.width}px` }"
+        :style="{
+          height: config.style.height,
+          width: `${(config.height * item.width) / item.height}px`
+        }"
       >
         <slot :item="item"></slot>
       </div>
@@ -21,8 +24,8 @@
           :key="index"
           class="itemWrapper fixedWidthItem"
           :style="{
-            width: config.width,
-            height: `${props.isAutoHeight ? 'auto' : item.height}px`
+            width: config.style.width,
+            height: `${props.isAutoHeight ? 'auto' : (config.width * item.height) / item.width}px`
           }"
         >
           <slot :item="item"></slot>
@@ -90,8 +93,12 @@ const config = computed(() => {
   return {
     isFixedWidth: props.type === 'fixedWidth',
     isFixedHeight: props.type === 'fixedHeight',
-    height: `${props.height}px`,
-    width: `${props.width}px`
+    style: {
+      height: `${props.height}px`,
+      width: `${props.width}px`
+    },
+    height: props.height,
+    width: props.width
   };
 });
 
@@ -127,7 +134,7 @@ const initLaneList = () => {
       list.forEach((item: ListItem, index) => {
         const _minPosi = Math.min(...lanePosition);
         const _minPosiIndex = lanePosition.indexOf(_minPosi);
-        lanePosition[_minPosiIndex] += item.height;
+        lanePosition[_minPosiIndex] += (config.value.width * item.height) / item.width;
         res[_minPosiIndex].push(item);
       });
       fixedWidthConfig.laneList = res;

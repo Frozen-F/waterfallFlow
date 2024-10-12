@@ -14,7 +14,7 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 8080,
+    // port: 8080,
     open: true, // 是否自动打开浏览器
     strictPort: true, // 端口呗占用时自动尝试下一个端口
     hmr: true, // 热更，默认为开启状态

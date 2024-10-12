@@ -89,7 +89,7 @@ const getTableData = () => {
     res.push({
       className,
       height: _rowC.endsWith('1') ? height : height * 2 + 8,
-      with: width * 2 + 8,
+      width: width * 2 + 8,
       list: list.slice(i, i + +num)
     });
     i += +num - 1;
