@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {reactive, ref} from 'vue';
+import {reactive, ref, computed} from 'vue';
 import WaterfallFlow from './components/waterfallFlow/index.vue'
 const list = [
   {
@@ -58,26 +58,43 @@ const list = [
   }
 ];
 
-const config = reactive({
-  height: 100,
-  width: 200
-});
-
 const types = ref([
   {
     type: 'auto',
-    name: '混合瀑布流布局'
+    name: '混合瀑布流布局',
+    props: {
+      height: 100,
+      width: 200
+    }
   },
   {
     type: 'fixedWidth',
-    name: '纵向瀑布流布局'
+    name: '纵向瀑布流布局',
+    props: {
+      width: 200
+    }
   },
   {
     type: 'fixedHeight',
-    name: '横向瀑布流布局'
+    name: '横向瀑布流布局',
+    props: {
+      height: 200,
+    }
+  },
+  {
+    type: 'rowFixedHeight',
+    name: '横向瀑布流布局(高度不固定)',
+    props: {
+      maxWidth: 300,
+    }
   }
 ]);
-const type = ref('auto');
+const type = ref<'fixedWidth' | 'fixedHeight' | 'auto' | 'rowFixedHeight'>('auto');
+
+const sizeConfig = computed(()=>{
+  const [_config] = types.value.filter((item)=>item.type === type.value);
+  return _config.props
+})
 </script>
 
 <template>
@@ -88,7 +105,7 @@ const type = ref('auto');
     </el-radio-group>
   </div>
   <div>
-    <WaterfallFlow :list="list" :width="config.width" :height="config.height" :type="type">
+    <WaterfallFlow :list="list" :type="type" v-bind="sizeConfig">
       <template #default="{ item }">
         <div class="testItem">
           {{ item.name }}
